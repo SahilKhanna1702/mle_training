@@ -17,6 +17,7 @@ from sklearn.model_selection import (
 )
 from sklearn.tree import DecisionTreeRegressor
 
+
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
 HOUSING_PATH = os.path.join("datasets", "housing")
 HOUSING_URL = DOWNLOAD_ROOT + "datasets/housing/housing.tgz"
@@ -29,6 +30,7 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz = tarfile.open(tgz_path)
     housing_tgz.extractall(path=housing_path)
     housing_tgz.close()
+
 
 
 housing1 = fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH)
@@ -61,6 +63,7 @@ def income_cat_proportions(data):
     return data["income_cat"].value_counts() / len(data)
 
 
+
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 
 compare_props = pd.DataFrame(
@@ -77,12 +80,14 @@ compare_props["Strat. %error"] = (
     100 * compare_props["Stratified"] / compare_props["Overall"] - 100
 )
 
+
 for set_ in (strat_train_set, strat_test_set):
     set_.drop("income_cat", axis=1, inplace=True)
 
 housing = strat_train_set.copy()
 housing.plot(kind="scatter", x="longitude", y="latitude")
 housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.1)
+
 
 housing_1 = housing.drop(["ocean_proximity"], axis=1)
 corr_matrix = housing_1.corr()
@@ -101,8 +106,10 @@ imputer = SimpleImputer(strategy="median")
 
 housing_num = housing.drop("ocean_proximity", axis=1)
 
+
 imputer.fit(housing_num)
 X = imputer.transform(housing_num)
+
 
 housing_tr = pd.DataFrame(X, columns=housing_num.columns, index=housing.index)
 
@@ -121,13 +128,16 @@ housing_prepared = housing_tr.join(pd.get_dummies(housing_cat, drop_first=True))
 lin_reg = LinearRegression()
 lin_reg.fit(housing_prepared, housing_labels)
 
+
 housing_predictions = lin_reg.predict(housing_prepared)
 lin_mse = mean_squared_error(housing_labels, housing_predictions)
 lin_rmse = np.sqrt(lin_mse)
 lin_rmse
 
+
 lin_mae = mean_absolute_error(housing_labels, housing_predictions)
 lin_mae
+
 
 
 tree_reg = DecisionTreeRegressor(random_state=42)
@@ -137,6 +147,7 @@ housing_predictions = tree_reg.predict(housing_prepared)
 tree_mse = mean_squared_error(housing_labels, housing_predictions)
 tree_rmse = np.sqrt(tree_mse)
 tree_rmse
+
 
 param_distribs = {
     "n_estimators": randint(low=1, high=200),
@@ -152,10 +163,12 @@ rnd_search = RandomizedSearchCV(
     scoring="neg_mean_squared_error",
     random_state=42,
 )
+
 rnd_search.fit(housing_prepared, housing_labels)
 cvres = rnd_search.cv_results_
 for mean_score, params in zip(cvres["mean_test_score"], cvres["params"]):
     print(np.sqrt(-mean_score), params)
+
 
 param_grid = [
     # try 12 (3×4) combinations of hyperparameters
@@ -173,6 +186,7 @@ grid_search = GridSearchCV(
     scoring="neg_mean_squared_error",
     return_train_score=True,
 )
+
 grid_search.fit(housing_prepared, housing_labels)
 
 grid_search.best_params_
@@ -188,6 +202,7 @@ final_model = grid_search.best_estimator_
 
 X_test = strat_test_set.drop("median_house_value", axis=1)
 y_test = strat_test_set["median_house_value"].copy()
+
 
 X_test_num = X_test.drop("ocean_proximity", axis=1)
 X_test_prepared = imputer.transform(X_test_num)
@@ -205,6 +220,7 @@ X_test_prepared["population_per_household"] = (
 )
 
 X_test_cat = X_test[["ocean_proximity"]]
+
 X_test_prepared = X_test_prepared.join(pd.get_dummies(X_test_cat, drop_first=True))
 
 
