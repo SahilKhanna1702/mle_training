@@ -1,0 +1,7 @@
+[flake8]
+
+#E501 -- Line too long
+ignore = [E501, F401]
+
+#set the maximum line length to 120
+max_line_length = 120

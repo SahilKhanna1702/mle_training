@@ -1,0 +1,9 @@
+Loaded the prepared dataset from D:\TAMLEP\mle_training\data\processed
+Training the Linear Regression model
+Saving the linear regression model
+Training the Decision Tree Regression model
+Saving the Decision Tree regression model
+Building Random Forest Regression model with randomized search on hyper parameter
+Building Random Forest Regression model with grid search on hyper parameters
+Finding the best estimator model
+Saved the best estimated final model
