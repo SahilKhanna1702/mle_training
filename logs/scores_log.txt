@@ -1,0 +1,5 @@
+Reading and storing the validation data from the path D:\TAMLEP\mle_training\data\processed
+Transformed the validation data
+Fetched and unpickeled the final model
+Predicting the values and printing scores
+Done

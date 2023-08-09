@@ -1,0 +1,7 @@
+Housing data from the URL is fetched and stored in the housing_path
+Loaded the housing data from D:\TAMLEP\mle_training\data\raw
+Stratified Splitting the data into train and test set 
+Random splitting the data into train and test set
+Downloaded the Randomly splitted tarin set and test set at D:\TAMLEP\mle_training\data\processed
+Downloaded the Stratified train data and Stratified test data D:\TAMLEP\mle_training\data\processed
+Downloaded the final prepared train dataset at D:\TAMLEP\mle_training\data\processed
