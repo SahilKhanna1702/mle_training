@@ -1,0 +1,13 @@
+LICENSE.txt
+README.md
+pyproject.toml
+setup.py
+HousingPricePredictions.egg-info/PKG-INFO
+HousingPricePredictions.egg-info/SOURCES.txt
+HousingPricePredictions.egg-info/dependency_links.txt
+HousingPricePredictions.egg-info/top_level.txt
+src/HousingPricePredictions/__init__.py
+src/HousingPricePredictions/ingest_data.py
+src/HousingPricePredictions/logger.py
+src/HousingPricePredictions/scores.py
+src/HousingPricePredictions/train.py
